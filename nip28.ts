@@ -21,7 +21,6 @@ export interface ChannelMetadataEventTemplate {
   tags?: string[][]
 }
 
-
 export interface ChannelMessageEventTemplate {
   channel_create_event_id: string
   reply_to_channel_message_event_id?: string
@@ -41,7 +40,7 @@ export interface ChannelHideMessageEventTemplate {
 export interface ChannelMuteUserEventTemplate {
   content: string | { reason: string }
   created_at: number
-  mute_pubkey: string
+  pubkey_to_mute: string
   tags?: string[][]
 }
 
@@ -90,7 +89,7 @@ export const channelMessageEvent = (t: ChannelMessageEventTemplate, privateKey: 
   const tags = [["e", t.channel_create_event_id, t.relay_url, "root"]];
 
   if (t.reply_to_channel_message_event_id) {
-    tags.push(["e", t.reply_to_channel_message_event_id, t.relay_url, "root"]);
+    tags.push(["e", t.reply_to_channel_message_event_id, t.relay_url, "reply"]);
   }
   
   return finishEvent({
@@ -140,7 +139,7 @@ export const channelMuteUserEvent = (t: ChannelMuteUserEventTemplate, privateKey
   return finishEvent({
     kind: Kind.ChannelMuteUser,
     tags: [
-      ["p", t.mute_pubkey],
+      ["p", t.pubkey_to_mute],
       ...(t.tags ?? [])
     ],
     content: content,
