@@ -1,6 +1,6 @@
 {
-  "name": "nostr-tools",
-  "version": "1.14.1",
+  "name": "airtune-nostr-tools-development",
+  "version": "1.14.2",
   "description": "Tools for making a Nostr client.",
   "repository": {
     "type": "git",
@@ -36,7 +36,8 @@
   "scripts": {
     "build": "node build",
     "format": "prettier --plugin-search-dir . --write .",
-    "test": "jest"
+    "test": "jest",
+    "ts:defs": "tsc --declaration --outDir ./lib --emitDeclarationOnly"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",
